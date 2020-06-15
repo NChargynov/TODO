@@ -17,7 +17,7 @@ public class IntroActivity extends AppCompatActivity {
 
 
     private ViewPager viewPager;
-    private Button btnNext, btnSkip;
+    private Button btnNext, btnSkip, btnStart;
     int currentPage;
 
     @Override
@@ -28,6 +28,8 @@ public class IntroActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.viewPager);
         btnNext = findViewById(R.id.btn_next);
         btnSkip = findViewById(R.id.btn_skip);
+        btnStart = findViewById(R.id.btn_start);
+        btnStart.setVisibility(View.GONE);
 
         initViewPagerAdapter();
         listeners();
@@ -88,12 +90,15 @@ public class IntroActivity extends AppCompatActivity {
             public void onPageSelected(int position) {
                 currentPage = position;
                 if (position == 2) {
-                    btnNext.setText("Start");
-                    btnSkip.setVisibility(View.INVISIBLE);
+                    btnSkip.setVisibility(View.GONE);
+                    btnNext.setVisibility(View.GONE);
+                    btnStart.setVisibility(View.VISIBLE);
                 } else {
                     btnNext.setText("Next");
                     btnSkip.setText("Skip");
+                    btnStart.setVisibility(View.GONE);
                     btnSkip.setVisibility(View.VISIBLE);
+                    btnNext.setVisibility(View.VISIBLE);
                 }
             }
 
