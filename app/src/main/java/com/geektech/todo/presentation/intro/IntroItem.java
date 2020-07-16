@@ -1,4 +1,4 @@
-package com.geektech.todo.intro;
+package com.geektech.todo.presentation.intro;
 
 public class IntroItem {
 

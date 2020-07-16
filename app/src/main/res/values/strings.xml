@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">TODO</string>
+    <string name="next">Next</string>
+    <string name="skip">Skip</string>
+    <string name="start">Start</string>
+    <string name="category">Category</string>
+    <string name="price">Price</string>
+    <string name="accessibility">Accessibility</string>
+
+    <string-array name="planets_array">
+        <item>Mercury</item>
+        <item>Venus</item>
+        <item>Earth</item>
+        <item>Mars</item>
+    </string-array>
+
 </resources>

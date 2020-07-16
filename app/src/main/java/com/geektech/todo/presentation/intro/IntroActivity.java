@@ -1,4 +1,4 @@
-package com.geektech.todo.intro;
+package com.geektech.todo.presentation.intro;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -8,16 +8,22 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.geektech.todo.MainActivity;
+import com.geektech.todo.App;
+import com.geektech.todo.data.AppPreference;
+import com.geektech.todo.presentation.main.MainActivity;
 import com.geektech.todo.R;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
+
 
 public class IntroActivity extends AppCompatActivity {
 
 
+    private TabLayout tabLayout;
     private ViewPager viewPager;
-    private Button btnNext, btnSkip, btnStart;
+    private Button btnNext;
+    private Button btnSkip;
     int currentPage;
 
     @Override
@@ -25,11 +31,11 @@ public class IntroActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
 
+        tabLayout = findViewById(R.id.tab_layout);
         viewPager = findViewById(R.id.viewPager);
         btnNext = findViewById(R.id.btn_next);
         btnSkip = findViewById(R.id.btn_skip);
-        btnStart = findViewById(R.id.btn_start);
-        btnStart.setVisibility(View.GONE);
+
 
         initViewPagerAdapter();
         listeners();
@@ -44,6 +50,7 @@ public class IntroActivity extends AppCompatActivity {
                     viewPager.setCurrentItem(currentPage + 1);
                 } else {
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    AppPreference.setLaunched(true);
                     finish();
                 }
 
@@ -54,6 +61,7 @@ public class IntroActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                AppPreference.setLaunched(true);
                 finish();
             }
         });
@@ -75,6 +83,7 @@ public class IntroActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
         adapter.update(getItems());
         init();
+        tabLayout.setupWithViewPager(viewPager, true);
 
 
     }
@@ -91,14 +100,11 @@ public class IntroActivity extends AppCompatActivity {
                 currentPage = position;
                 if (position == 2) {
                     btnSkip.setVisibility(View.GONE);
-                    btnNext.setVisibility(View.GONE);
-                    btnStart.setVisibility(View.VISIBLE);
+                    btnNext.setText(R.string.start);
                 } else {
-                    btnNext.setText("Next");
-                    btnSkip.setText("Skip");
-                    btnStart.setVisibility(View.GONE);
+                    btnNext.setText(R.string.next);
+                    btnSkip.setText(R.string.skip);
                     btnSkip.setVisibility(View.VISIBLE);
-                    btnNext.setVisibility(View.VISIBLE);
                 }
             }
 
