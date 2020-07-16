@@ -6,12 +6,18 @@
     <string name="category">Category</string>
     <string name="price">Price</string>
     <string name="accessibility">Accessibility</string>
+    <string name="participant">Participants</string>
 
-    <string-array name="planets_array">
-        <item>Mercury</item>
-        <item>Venus</item>
-        <item>Earth</item>
-        <item>Mars</item>
+    <string-array name="types">
+        <item>education</item>
+        <item>recreational</item>
+        <item>social</item>
+        <item>DIY</item>
+        <item>charity</item>
+        <item>cooking</item>
+        <item>relaxation</item>
+        <item>music</item>
+        <item>busywork</item>
     </string-array>
 
 </resources>

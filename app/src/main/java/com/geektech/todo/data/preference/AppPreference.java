@@ -1,4 +1,4 @@
-package com.geektech.todo.data;
+package com.geektech.todo.data.preference;
 
 import android.content.Context;
 import android.content.SharedPreferences;

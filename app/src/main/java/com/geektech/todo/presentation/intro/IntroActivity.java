@@ -8,62 +8,52 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.geektech.todo.App;
-import com.geektech.todo.data.AppPreference;
+import com.geektech.todo.data.preference.AppPreference;
 import com.geektech.todo.presentation.main.MainActivity;
 import com.geektech.todo.R;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 
 public class IntroActivity extends AppCompatActivity {
 
 
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
-    private Button btnNext;
-    private Button btnSkip;
+    @BindView(R.id.tab_layout) TabLayout tabLayout;
+    @BindView(R.id.viewPager) ViewPager viewPager;
+    @BindView(R.id.btn_next) Button btnNext;
+    @BindView(R.id.btn_skip) Button btnSkip;
     int currentPage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
-
-        tabLayout = findViewById(R.id.tab_layout);
-        viewPager = findViewById(R.id.viewPager);
-        btnNext = findViewById(R.id.btn_next);
-        btnSkip = findViewById(R.id.btn_skip);
-
-
+        ButterKnife.bind(this);
         initViewPagerAdapter();
         listeners();
 
     }
 
     private void listeners() {
-        btnNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (viewPager.getCurrentItem() != 2) {
-                    viewPager.setCurrentItem(currentPage + 1);
-                } else {
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                    AppPreference.setLaunched(true);
-                    finish();
-                }
-
-            }
-        });
-
-        btnSkip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        btnNext.setOnClickListener(v -> {
+            if (viewPager.getCurrentItem() != 2) {
+                viewPager.setCurrentItem(currentPage + 1);
+            } else {
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 AppPreference.setLaunched(true);
                 finish();
             }
+
+        });
+
+        btnSkip.setOnClickListener(v -> {
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            AppPreference.setLaunched(true);
+            finish();
         });
 
     }
