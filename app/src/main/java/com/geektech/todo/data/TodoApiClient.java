@@ -24,43 +24,35 @@ public class TodoApiClient {
     public void getAction(String type, Integer participants,
                           Float price, Float maxPrice, Float minPrice,
                           Float accessibility, Float minAccessibility,
-                          Float maxAccessibility, final TodoActionCallback callBack){
+                          Float maxAccessibility, final TodoActionCallback callBack) {
         Call<TodoAction> call = client.getAction(type, maxPrice, minPrice,
                 minAccessibility, maxAccessibility);
-        call.enqueue(new Callback<TodoAction>() {
-            @Override
-            public void onResponse(Call<TodoAction> call, Response<TodoAction> response) {
-                if (response.isSuccessful()) {
-                    if (response.body() != null) {
-                        callBack.onSuccess(response.body());
-                        Log.d("ololo", response.body().toString());
-                    } else {
-                        callBack.onFailure(new Exception("Body is empty"));
-                    }
-                } else {
-                    callBack.onFailure(new Exception("Response code " + response.code()));
-                }
 
+
+        call.enqueue(new CoreCallback<TodoAction>() {
+            @Override
+            void onSuccess(TodoAction result) {
+                callBack.onSuccess(result);
             }
 
             @Override
-            public void onFailure(Call<TodoAction> call, Throwable t) {
-                callBack.onFailure(new Exception(t));
-
+            void onFailure(Exception result) {
+                callBack.onFailure(result);
             }
         });
-    }
-
-    public interface TodoActionCallback extends TodoBaseCallBack <TodoAction> {
 
     }
 
-    public interface TodoBaseCallBack<A>{
+    public interface TodoActionCallback extends TodoBaseCallBack<TodoAction> {
+
+    }
+
+    public interface TodoBaseCallBack<A> {
         void onSuccess(A result);
         void onFailure(Exception exception);
     }
 
-    public interface TodoApi{
+    public interface TodoApi {
 
         @GET("api/activity/")
         Call<TodoAction> getAction(
